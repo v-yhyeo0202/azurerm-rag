@@ -1,0 +1,19 @@
+path:
+  main: '/home/v-yyeo/azurerm-rag/builder'
+  data: '/home/v-yyeo/azurerm-rag/data'
+  database: '/home/v-yyeo/azurerm-rag/database'
+  home: '/home/v-yyeo'
+  azurerm: 'terraform-provider-azurerm-0/terraform-provider-azurerm'
+
+model: 'bgeM3'
+modelInfo:
+  bgeM3:
+    id: 'BAAI/bge-m3'
+  jinaClipV2:
+    id: 'jinaai/jina-clip-v2'
+  qwen3Vl2B:
+    id: 'Qwen/Qwen3-VL-Embedding-2B'
+
+batch: 12
+bReset: true
+nResult: 3
