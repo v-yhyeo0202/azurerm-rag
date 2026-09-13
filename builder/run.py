@@ -56,4 +56,4 @@ while True:
         for dictMetadata in dictResult['metadatas'][0]: # type: ignore
             startLine = f", {dictMetadata['startLine']}" if 'startLine' in dictMetadata else ''
             endLine = f", {dictMetadata['endLine']}" if 'endLine' in dictMetadata else ''
-            print(f"{dictMetadata['path'].removeprefix(os.path.join(dictConfig['path']['repository'], 'terraform-provider-azurerm'))}{startLine}{endLine}") # type: ignore
+            print(f"{dictMetadata['path'].removeprefix(os.path.join(dictConfig['path']['repository'], 'terraform-provider-azurerm', ''))}{startLine}{endLine}") # type: ignore
