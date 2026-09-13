@@ -99,13 +99,6 @@ df = pd.read_csv(os.path.join(dictConfig['path']['repository'], dictConfig['path
 listChunkType = np.unique(df.loc[:, 'chunkType']).tolist()
 
 for chunkType in listChunkType:
-    collection = client.create_collection(
-        f'{chunkType}_model{capitalizedModelName}',
-        metadata = {
-            'hnsw:construction_ef': 500,
-            'hnsw:M': 64,
-            'hnsw:search_ef': 512
-        }
-    )
+    collection = client.create_collection(f'{chunkType}_model{capitalizedModelName}')
     srBChunkType = df.loc[:, 'chunkType'] == chunkType
     encodePartOfFile(model, collection, df.loc[srBChunkType, :].reset_index())
