@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"strings"
 
 	"go/ast"
@@ -138,18 +140,19 @@ func main() {
 		log.Fatalf("error unmarshalling YAML: %v", err)
 	}
 
-	if err := os.MkdirAll(config.Path["data"], os.ModePerm); err != nil {
+	dataPath := filepath.Join(config.Path["repository"], config.Path["data"])
+	if err := os.MkdirAll(dataPath, os.ModePerm); err != nil {
 		log.Fatalf("error creating directory: %v", err)
 	}
 
-	chunkLineFile, err := os.Create(filepath.Join(config.Path["data"], "chunkLine.csv"))
+	chunkLineFile, err := os.Create(filepath.Join(dataPath, "chunkLine.csv"))
 	if err != nil {
 		log.Fatalf("error creating file: %v", err)
 	}
 	defer chunkLineFile.Close()
 	chunkLineFile.WriteString("path,chunkType,chunkName,startLine,endLine\n")
 
-	azurermPath := filepath.Join(config.Path["home"], config.Path["azurerm"])
+	azurermPath := filepath.Join(config.Path["repository"], "terraform-provider-azurerm")
 	mainServicePath := filepath.Join(azurermPath, "internal", "services")
 	serviceDirEntries, err := os.ReadDir(mainServicePath)
 	if err != nil {
@@ -193,5 +196,18 @@ func main() {
 				ast.Inspect(resourceFile, getInspectFunction(fileSet, chunkLineFile))
 			}
 		}
+	}
+
+	cmd := exec.Command("git", "-C", azurermPath, "rev-parse", "HEAD")
+	var stdout bytes.Buffer
+	cmd.Stdout = &stdout
+
+	err = cmd.Run()
+	if err != nil {
+		log.Fatalf("error reading Git commit: %v", err)
+	}
+
+	if err := os.WriteFile(filepath.Join(dataPath, "azurermCommit.txt"), stdout.Bytes(), 0644); err != nil {
+		log.Fatalf("error writing Git commit: %v", err)
 	}
 }

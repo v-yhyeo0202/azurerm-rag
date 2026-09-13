@@ -1,2 +1,9 @@
 data/
 database/
+
+chunk-line-extractor/chunk-line-extractor
+chunk-line-extractor/vendor/
+
+builder/__pycache__/
+
+*.swp

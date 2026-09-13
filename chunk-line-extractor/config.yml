@@ -1,5 +1,4 @@
 path:
-  main: '/home/v-yyeo/azurerm-rag/chunk-line-extractor'
-  data: '/home/v-yyeo/azurerm-rag/data'
-  home: '/home/v-yyeo'
-  azurerm: 'terraform-provider-azurerm-0/terraform-provider-azurerm'
+  repository: '/home/v-yyeo/azurerm-rag/'
+  main: 'chunk-line-extractor'
+  data: 'data'

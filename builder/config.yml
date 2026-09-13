@@ -1,9 +1,8 @@
 path:
-  main: '/home/v-yyeo/azurerm-rag/builder'
-  data: '/home/v-yyeo/azurerm-rag/data'
-  database: '/home/v-yyeo/azurerm-rag/database'
-  home: '/home/v-yyeo'
-  azurerm: 'terraform-provider-azurerm-0/terraform-provider-azurerm'
+  repository: '/home/v-yyeo/azurerm-rag'
+  main: 'builder'
+  data: 'data'
+  database: 'database'
 
 model: 'bgeM3'
 modelInfo:
@@ -16,4 +15,4 @@ modelInfo:
 
 batch: 12
 bReset: true
-nResult: 3
+nResult: 10
